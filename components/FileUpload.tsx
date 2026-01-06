@@ -2,6 +2,8 @@
 
 import { upload } from "@imagekit/next";
 import { useState } from "react";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 interface FileUploadProps {
   onSuccess: (res: { fileId: string; url: string; name: string }) => void;
@@ -71,7 +73,10 @@ const FileUpload = ({ onSuccess, onProgress, fileType }: FileUploadProps) => {
   return (
     <>
       {/* File input element using React ref */}
-      <input
+      <Label htmlFor="upload" className="cursor-pointer">
+        Upload*
+      </Label>
+      <Input
         type="file"
         accept={fileType === "video" ? "video/*" : "image/*"}
         onChange={handleFileChange}
