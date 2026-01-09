@@ -8,6 +8,10 @@ type FetchOptions = {
   headers?: Record<string, string>;
 };
 
+type GetVideosResponse = {
+  data: IVideo[];
+};
+
 class ApiClient {
   private async fetch<T>(
     endPoint: string,
@@ -33,12 +37,12 @@ class ApiClient {
     return response.json();
   }
 
-  async getVideos() {
-    return this.fetch("/video");
+  async getVideos(): Promise<IVideo[]> {
+    return this.fetch<IVideo[]>("/api/video");
   }
 
   async createVideos(videoData: VideoFormData) {
-    return this.fetch("/video", {
+    return this.fetch("/api/video", {
       method: "POST",
       body: videoData,
     });

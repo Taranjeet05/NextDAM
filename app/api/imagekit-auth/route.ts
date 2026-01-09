@@ -16,10 +16,8 @@ export async function GET() {
     // authenticationParameters hold these things { token, expire, signature } ✨
 
     return NextResponse.json(
-      {
-        authenticationParameters,
-        publicKey,
-      },
+      authenticationParameters,
+
       { status: 200 }
     );
   } catch (error) {
