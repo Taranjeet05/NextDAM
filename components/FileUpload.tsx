@@ -1,4 +1,4 @@
-"use client"; // This component must be a client component
+"use client"; 
 
 import { upload } from "@imagekit/next";
 import { useState } from "react";
@@ -20,10 +20,12 @@ const FileUpload = ({ onSuccess, onProgress, fileType }: FileUploadProps) => {
     if (fileType === "video") {
       if (!file.type.startsWith("video/")) {
         setError("Please Upload a valid video file");
+        return false;
       }
     }
     if (file.size > 100 * 1024 * 1024) {
-      return setError("File size must be less than 100 MB");
+      setError("File size must be less than 100 MB");
+      return false; 
     }
     return true;
   }
@@ -38,7 +40,7 @@ const FileUpload = ({ onSuccess, onProgress, fileType }: FileUploadProps) => {
     setError(null);
 
     try {
-      const authRes = await fetch("/api/auth/imagekit-auth");
+      const authRes = await fetch("/api/imagekit-auth");
       const auth = await authRes.json();
 
       const response = await upload({

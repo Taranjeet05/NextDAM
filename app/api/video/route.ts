@@ -8,16 +8,14 @@ export async function GET() {
   try {
     // connect with DB
     await connectToDatabase();
-    
+
     const allVideos = await Video.find({}).sort({ createdAt: -1 }).lean();
     if (!allVideos || allVideos.length === 0) {
       return NextResponse.json([], { status: 200 });
     }
 
-    return NextResponse.json(
-      { message: "Fetched All Videos", allVideos },
-      { status: 200 }
-    );
+    return NextResponse.json(allVideos, { status: 200 });
+    
   } catch (error) {
     console.error("Failed to fetch Videos", error);
     return NextResponse.json(
