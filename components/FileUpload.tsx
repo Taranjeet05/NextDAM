@@ -14,7 +14,12 @@ interface FileUploadProps {
   fileType?: "image" | "video";
 }
 
-const FileUpload = ({ onSuccess, onProgress, onFileRemove, fileType }: FileUploadProps) => {
+const FileUpload = ({
+  onSuccess,
+  onProgress,
+  onFileRemove,
+  fileType,
+}: FileUploadProps) => {
   const [uploading, setUploading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -129,14 +134,14 @@ const FileUpload = ({ onSuccess, onProgress, onFileRemove, fileType }: FileUploa
               className="flex-1"
               disabled={uploading}
             />
-            
+
             {selectedFile && !uploading && (
               <Button
                 type="button"
                 variant="ghost"
                 size="icon"
                 onClick={handleClearFile}
-                className="flex-shrink-0"
+                className="shrink-0"
               >
                 <X className="w-4 h-4" />
               </Button>
@@ -148,17 +153,19 @@ const FileUpload = ({ onSuccess, onProgress, onFileRemove, fileType }: FileUploa
         {selectedFile && !uploading && !uploadComplete && (
           <div className="flex items-center justify-between p-3 bg-muted rounded-md border-2 border-dashed">
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium truncate">{selectedFile.name}</p>
+              <p className="text-sm font-medium truncate">
+                {selectedFile.name}
+              </p>
               <p className="text-xs text-muted-foreground">
                 {formatFileSize(selectedFile.size)}
               </p>
             </div>
-            
+
             <Button
               type="button"
               onClick={handleUpload}
               size="sm"
-              className="ml-3 flex-shrink-0"
+              className="ml-3 shrink-0"
             >
               <Upload className="w-4 h-4 mr-2" />
               Start Upload

@@ -66,7 +66,7 @@ const UploadPage = () => {
   const isFormValid = title.trim() && description.trim() && fileUploaded;
 
   return (
-    <div className="p-10 min-h-screen bg-gradient-to-b from-background to-muted/20">
+    <div className="p-10 min-h-screen bg-linear-to-b from-background to-muted/20">
       <div className="flex items-center justify-between mb-8">
         <div>
           <h2 className="text-3xl font-mono font-extrabold tracking-tighter">
@@ -127,7 +127,7 @@ const UploadPage = () => {
                   onChange={(e) => setDescription(e.target.value)}
                   id="description"
                   placeholder="Describe your video content..."
-                  className="min-h-[120px] resize-none"
+                  className="min-h-30 resize-none"
                   maxLength={500}
                 />
                 <p className="text-xs text-muted-foreground">
@@ -160,7 +160,7 @@ const UploadPage = () => {
                     <span className="text-sm font-medium truncate flex-1 text-green-900 dark:text-green-100">
                       {fileName}
                     </span>
-                    <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0" />
+                    <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400 shrink-0" />
                   </div>
                 )}
               </div>
@@ -195,7 +195,7 @@ const UploadPage = () => {
                 </Button>
                 <Button
                   type="submit"
-                  className="font-semibold min-w-[140px]"
+                  className="font-semibold min-w-35"
                   disabled={!isFormValid || loading}
                 >
                   {loading ? (
