@@ -4,7 +4,7 @@ import { apiClient } from "@/lib/api-client";
 import { IVideo } from "@/models/Video";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Video } from "@imagekit/next";
+import { buildSrc, Video } from "@imagekit/next";
 import { Clock, Play, Upload } from "lucide-react";
 
 const Home = () => {
@@ -24,6 +24,22 @@ const Home = () => {
     };
     fetchVideos();
   }, []);
+
+  // Adding helper function to Generate poster Url.
+
+  const generatePosterUrl = (videoUrl: string) => {
+    return buildSrc({
+      urlEndpoint: process.env.NEXT_PUBLIC_URL_ENDPOINT!,
+      src: `${videoUrl}/ik-thumbnail.jpg`,
+      transformation: [
+        {
+          width: 500,
+          height: 300,
+          quality: 80,
+        },
+      ],
+    });
+  };
 
   if (loading) {
     return (
@@ -105,6 +121,8 @@ const Home = () => {
                     controls={video.controls}
                     width={video.transformation?.width ?? 500}
                     height={video.transformation?.height ?? 300}
+                    preload="none" // video won't download until user clicks play
+                    poster={generatePosterUrl(video.videoUrl)}
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
